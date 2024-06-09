@@ -33,8 +33,8 @@ This application is a GUI-based tool designed to calculate grades for milestones
 - If the user enters Milestone 1 Grade as 20, Milestone 2 Grade as 35, and Terminal Assessment Grade as 30, the Total Grade will be calculated as follows:
 
   - Milestone 1 Contribution: (20/25) * 25 = 20   
-  - Milestone 2 Contribution: (35/40) * 40 = 20
-  - Terminal Assessment Contribution: (30/35) * 25 = 20
+  - Milestone 2 Contribution: (35/40) * 40 = 35
+  - Terminal Assessment Contribution: (30/35) * 25 = 30
 
   - Total Grade: 20 + 35 + 30 = 85
 
