@@ -8,6 +8,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import javax.swing.JOptionPane;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 /**
  *
@@ -59,9 +62,14 @@ public class Milestone extends javax.swing.JFrame {
 
             private void validate() {
                 String text = textField.getText();
+                if (text.isEmpty()) {
+                    errorLabel.setText(""); // Clear error message
+                    errorLabel.setVisible(false); // Hide error label
+                    return;
+                }
                 try {
                     int value = Integer.parseInt(text);
-                    if (value < 1 || value > max) {
+                    if (value < 0 || value > max) {
                         errorLabel.setText("Must be 0 -" + max);
                         errorLabel.setVisible(true); // Show error label
                     } else {
@@ -104,17 +112,21 @@ public class Milestone extends javax.swing.JFrame {
     }
 
     private String validateInput(JTextField textField, int max, String fieldName) {
-        String text = textField.getText();
-        try {
-            int value = Integer.parseInt(text);
-            if (value < 0 || value > max) {
-                return fieldName + " grade must be between 0 and " + max + ".\n";
-            }
-        } catch (NumberFormatException e) {
-            return fieldName + " grade must be a valid number.\n";
-        }
+    String text = textField.getText();
+    if (text.isEmpty()) {
         return "";
     }
+    try {
+        int value = Integer.parseInt(text);
+        if (value < 0 || value > max) {
+            return fieldName + " grade must be between 0 and " + max + ".\n";
+        }
+    } catch (NumberFormatException e) {
+        return fieldName + " grade must be a valid number.\n";
+    }
+    return "";
+    }
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -385,9 +397,15 @@ public class Milestone extends javax.swing.JFrame {
         double calcMilestone2 = (ms2 / 40) * 0.40;
         double calcTerminalAssessment = (ta / 35) * 0.35;
 
-        double finalGrade = (calcMilestone1 + calcMilestone2 + calcTerminalAssessment) * 100;
-        return finalGrade;
+        double finalGrade = (calcMilestone1 + calcMilestone2 + calcTerminalAssessment) * 100.00;
+
+        BigDecimal bd = new BigDecimal(Double.toString(finalGrade));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+        return bd.doubleValue();
     }
+
+
     }
     /**
      * @param args the command line arguments
