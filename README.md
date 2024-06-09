@@ -1,4 +1,8 @@
 # Milestone Calculator
+Anos, Shanne
+Atienza, Trisha Mei
+Quesada, Michelle Joi
+Layaguin, Darin
 
 ## About the Application
 
